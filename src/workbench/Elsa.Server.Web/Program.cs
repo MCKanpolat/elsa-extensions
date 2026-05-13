@@ -441,6 +441,10 @@ services
                 };
             })
             .UseEmail(email => email.ConfigureOptions = options => configuration.GetSection("Smtp").Bind(options))
+            .UseZendesk(zendesk =>
+            {
+                zendesk.ConfigureZendeskOptions = options => configuration.GetSection("Zendesk").Bind(options);
+            })
             .UseAlterations(alterations =>
             {
                 if (persistenceProvider == PersistenceProvider.MongoDb)
