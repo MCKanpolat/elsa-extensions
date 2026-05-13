@@ -81,12 +81,12 @@ public class ListTriggerCategories : ZendeskActivity
 [UsedImplicitly]
 public class CreateTriggerCategory : ZendeskActivity
 {
-    [Input(Description = "Name of the category.")] public Input<string> Name { get; set; } = null!;
+    [Input(Description = "Name of the category.")] public Input<string> CategoryName { get; set; } = null!;
     [Output(Description = "The created category.")] public Output<TriggerCategory?> Category { get; set; } = null!;
 
     protected override async ValueTask ExecuteAsync(ActivityExecutionContext context)
     {
-        var request = new TriggerCategoryRequest { TriggerCategory = new TriggerCategoryInput { Name = context.Get(Name) } };
+        var request = new TriggerCategoryRequest { TriggerCategory = new TriggerCategoryInput { Name = context.Get(CategoryName) } };
         var response = await GetClient(context).Triggers.CreateTriggerCategoryAsync(request, context.CancellationToken);
         context.Set(Category, response.TriggerCategory);
     }

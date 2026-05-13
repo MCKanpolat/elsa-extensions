@@ -9,13 +9,13 @@ namespace Elsa.Zendesk.Activities.Groups;
 [UsedImplicitly]
 public class CreateGroup : ZendeskActivity
 {
-    [Input(Description = "The name of the group.")] public Input<string> Name { get; set; } = null!;
+    [Input(Description = "The name of the group.")] public Input<string> GroupName { get; set; } = null!;
     [Input(Description = "Description of the group.")] public Input<string?> Description { get; set; } = null!;
     [Output(Description = "The created group.")] public Output<Group?> Group { get; set; } = null!;
 
     protected override async ValueTask ExecuteAsync(ActivityExecutionContext context)
     {
-        var request = new CreateGroupRequest { Group = new GroupInput { Name = context.Get(Name), Description = context.Get(Description) } };
+        var request = new CreateGroupRequest { Group = new GroupInput { Name = context.Get(GroupName), Description = context.Get(Description) } };
         var response = await GetClient(context).Groups.CreateGroupAsync(request, context.CancellationToken);
         context.Set(Group, response.Group);
     }
@@ -71,12 +71,12 @@ public class ListGroupUsers : ZendeskActivity
 public class UpdateGroup : ZendeskActivity
 {
     [Input(Description = "The ID of the group.")] public Input<long> GroupId { get; set; } = null!;
-    [Input(Description = "New name.")] public Input<string?> Name { get; set; } = null!;
+    [Input(Description = "New name.")] public Input<string?> GroupName { get; set; } = null!;
     [Output(Description = "The updated group.")] public Output<Group?> Group { get; set; } = null!;
 
     protected override async ValueTask ExecuteAsync(ActivityExecutionContext context)
     {
-        var request = new UpdateGroupRequest { Group = new GroupInput { Name = context.Get(Name) } };
+        var request = new UpdateGroupRequest { Group = new GroupInput { Name = context.Get(GroupName) } };
         var response = await GetClient(context).Groups.UpdateGroupAsync(context.Get(GroupId), request, context.CancellationToken);
         context.Set(Group, response.Group);
     }

@@ -9,13 +9,13 @@ namespace Elsa.Zendesk.Activities.Brands;
 [UsedImplicitly]
 public class CreateBrand : ZendeskActivity
 {
-    [Input(Description = "The name of the brand.")] public Input<string> Name { get; set; } = null!;
+    [Input(Description = "The name of the brand.")] public Input<string> BrandName { get; set; } = null!;
     [Input(Description = "The subdomain for the brand.")] public Input<string?> Subdomain { get; set; } = null!;
     [Output(Description = "The created brand.")] public Output<Brand?> Brand { get; set; } = null!;
 
     protected override async ValueTask ExecuteAsync(ActivityExecutionContext context)
     {
-        var request = new CreateBrandRequest { Brand = new BrandInput { Name = context.Get(Name), Subdomain = context.Get(Subdomain) } };
+        var request = new CreateBrandRequest { Brand = new BrandInput { Name = context.Get(BrandName), Subdomain = context.Get(Subdomain) } };
         var response = await GetClient(context).Brands.CreateBrandAsync(request, context.CancellationToken);
         context.Set(Brand, response.Brand);
     }
@@ -55,12 +55,12 @@ public class ListBrands : ZendeskActivity
 public class UpdateBrand : ZendeskActivity
 {
     [Input(Description = "The ID of the brand.")] public Input<long> BrandId { get; set; } = null!;
-    [Input(Description = "New name.")] public Input<string?> Name { get; set; } = null!;
+    [Input(Description = "New name.")] public Input<string?> BrandName { get; set; } = null!;
     [Output(Description = "The updated brand.")] public Output<Brand?> Brand { get; set; } = null!;
 
     protected override async ValueTask ExecuteAsync(ActivityExecutionContext context)
     {
-        var request = new UpdateBrandRequest { Brand = new BrandInput { Name = context.Get(Name) } };
+        var request = new UpdateBrandRequest { Brand = new BrandInput { Name = context.Get(BrandName) } };
         var response = await GetClient(context).Brands.UpdateBrandAsync(context.Get(BrandId), request, context.CancellationToken);
         context.Set(Brand, response.Brand);
     }

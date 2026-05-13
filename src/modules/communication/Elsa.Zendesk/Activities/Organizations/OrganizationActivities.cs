@@ -9,14 +9,14 @@ namespace Elsa.Zendesk.Activities.Organizations;
 [UsedImplicitly]
 public class CreateOrganization : ZendeskActivity
 {
-    [Input(Description = "The name of the organization.")] public Input<string> Name { get; set; } = null!;
+    [Input(Description = "The name of the organization.")] public Input<string> OrganizationName { get; set; } = null!;
     [Input(Description = "Notes about the organization.")] public Input<string?> Notes { get; set; } = null!;
     [Input(Description = "Details about the organization.")] public Input<string?> Details { get; set; } = null!;
     [Output(Description = "The created organization.")] public Output<Organization?> Organization { get; set; } = null!;
 
     protected override async ValueTask ExecuteAsync(ActivityExecutionContext context)
     {
-        var request = new CreateOrganizationRequest { Organization = new OrganizationInput { Name = context.Get(Name), Notes = context.Get(Notes), Details = context.Get(Details) } };
+        var request = new CreateOrganizationRequest { Organization = new OrganizationInput { Name = context.Get(OrganizationName), Notes = context.Get(Notes), Details = context.Get(Details) } };
         var response = await GetClient(context).Organizations.CreateOrganizationAsync(request, context.CancellationToken);
         context.Set(Organization, response.Organization);
     }
@@ -72,13 +72,13 @@ public class SearchOrganizations : ZendeskActivity
 public class UpdateOrganization : ZendeskActivity
 {
     [Input(Description = "The ID of the organization.")] public Input<long> OrganizationId { get; set; } = null!;
-    [Input(Description = "New name.")] public Input<string?> Name { get; set; } = null!;
+    [Input(Description = "New name.")] public Input<string?> OrganizationName { get; set; } = null!;
     [Input(Description = "New notes.")] public Input<string?> Notes { get; set; } = null!;
     [Output(Description = "The updated organization.")] public Output<Organization?> Organization { get; set; } = null!;
 
     protected override async ValueTask ExecuteAsync(ActivityExecutionContext context)
     {
-        var request = new UpdateOrganizationRequest { Organization = new OrganizationInput { Name = context.Get(Name), Notes = context.Get(Notes) } };
+        var request = new UpdateOrganizationRequest { Organization = new OrganizationInput { Name = context.Get(OrganizationName), Notes = context.Get(Notes) } };
         var response = await GetClient(context).Organizations.UpdateOrganizationAsync(context.Get(OrganizationId), request, context.CancellationToken);
         context.Set(Organization, response.Organization);
     }

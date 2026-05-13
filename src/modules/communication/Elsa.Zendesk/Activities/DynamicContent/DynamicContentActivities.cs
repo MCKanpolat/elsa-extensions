@@ -24,13 +24,13 @@ public class ListDynamicContentItems : ZendeskActivity
 [UsedImplicitly]
 public class CreateDynamicContentItem : ZendeskActivity
 {
-    [Input(Description = "The name of the dynamic content item.")] public Input<string> Name { get; set; } = null!;
+    [Input(Description = "The name of the dynamic content item.")] public Input<string> ItemName { get; set; } = null!;
     [Input(Description = "Default locale ID.")] public Input<long> DefaultLocaleId { get; set; } = null!;
     [Output(Description = "The created item.")] public Output<DynamicContentItem?> Item { get; set; } = null!;
 
     protected override async ValueTask ExecuteAsync(ActivityExecutionContext context)
     {
-        var request = new CreateDynamicContentItemRequest { Item = new DynamicContentItemInput { Name = context.Get(Name), DefaultLocaleId = context.Get(DefaultLocaleId) } };
+        var request = new CreateDynamicContentItemRequest { Item = new DynamicContentItemInput { Name = context.Get(ItemName), DefaultLocaleId = context.Get(DefaultLocaleId) } };
         var response = await GetClient(context).DynamicContent.CreateDynamicContentItemAsync(request, context.CancellationToken);
         context.Set(Item, response.Item);
     }

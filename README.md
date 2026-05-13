@@ -21,6 +21,7 @@ Below is the current status of each extension. Icons indicate implementation pro
 | 🔲 | **Discord** | Bot commands, message triggers | `Elsa.Discord` | [Open Issue](https://github.com/elsa-workflows/elsa-extensions/issues/new) |
 | 🔲 | **Microsoft Teams** | Chat automation, meeting reminders | `Elsa.Teams` | [Open Issue](https://github.com/elsa-workflows/elsa-extensions/issues/new) |
 | [✅](https://github.com/elsa-workflows/elsa-extensions/tree/main/src/telnyx/Elsa.Telnyx) | **Telnyx** | Telephony automation | `Elsa.Telnyx` | [Open Issue](https://github.com/elsa-workflows/elsa-extensions/issues/new) |
+| [✅](https://github.com/elsa-workflows/elsa-extensions/tree/main/src/modules/communication/Elsa.Zendesk) | **Zendesk** | Ticket management, users, organizations, triggers | `Elsa.Zendesk` | [Open Issue](https://github.com/elsa-workflows/elsa-extensions/issues/new) |
 
 ### 📧 Email & Productivity
 | Status | Extension | Description | Module Name | Issue |

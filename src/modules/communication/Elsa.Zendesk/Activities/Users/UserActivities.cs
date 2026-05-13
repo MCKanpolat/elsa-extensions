@@ -10,7 +10,7 @@ namespace Elsa.Zendesk.Activities.Users;
 [UsedImplicitly]
 public class CreateUser : ZendeskActivity
 {
-    [Input(Description = "The name of the user.")] public Input<string> Name { get; set; } = null!;
+    [Input(Description = "The name of the user.")] public Input<string> UserName { get; set; } = null!;
     [Input(Description = "The email address of the user.")] public Input<string?> Email { get; set; } = null!;
     [Input(Description = "The role of the user (end-user, agent, admin).")] public Input<string?> Role { get; set; } = null!;
     [Input(Description = "The organization ID to assign the user to.")] public Input<long?> OrganizationId { get; set; } = null!;
@@ -22,7 +22,7 @@ public class CreateUser : ZendeskActivity
         {
             User = new UserInput
             {
-                Name = context.Get(Name),
+                Name = context.Get(UserName),
                 Email = context.Get(Email),
                 Role = context.Get(Role),
                 OrganizationId = context.Get(OrganizationId)

@@ -36,7 +36,7 @@ public class CreateTicket : ZendeskActivity
 
     /// <summary>Ticket type (problem, incident, question, task).</summary>
     [Input(Description = "The ticket type (problem, incident, question, task).")]
-    public Input<string?> Type { get; set; } = null!;
+    public Input<string?> TicketType { get; set; } = null!;
 
     /// <summary>The created ticket.</summary>
     [Output(Description = "The created Zendesk ticket.")]
@@ -56,7 +56,7 @@ public class CreateTicket : ZendeskActivity
                 AssigneeId = context.Get(AssigneeId),
                 GroupId = context.Get(GroupId),
                 Priority = context.Get(Priority),
-                Type = context.Get(Type)
+                Type = context.Get(TicketType)
             }
         };
 
